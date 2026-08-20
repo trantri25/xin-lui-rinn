@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💌 Rinn ơi... Tobii xin lỗi 🌸</title>
+    <meta name="description" content="Trang web xin lỗi lãng mạn dành riêng cho Rinn từ Tobii">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Outfit:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-pink: #ff6b8b;
+            --soft-pink: #ffb6c1;
+            --blush-pink: #ffe4e1;
+            --deep-pink: #d81b60;
+            --rose-gold: #e8a598;
+            --bg-dark-pink: #1d0a1b;
+            --glass-bg: rgba(255, 240, 245, 0.15);
+            --glass-border: rgba(255, 182, 193, 0.3);
+            --shadow-pink: rgba(255, 105, 180, 0.25);
+            --text-color: #fff0f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #18051b 0%, #2a0826 40%, #3b0d32 70%, #1a061c 100%);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== Ambient Animated Background ===== */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .pink-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: orbFloat 15s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 350px;
+            height: 350px;
+            background: #ff4081;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 450px;
+            height: 450px;
+            background: #ab47bc;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #ff80ab;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(60px, 40px) scale(1.15);
+            }
+        }
+
+        /* ===== Falling Sakura & Rose Petals ===== */
+        .petal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .petal {
+            position: absolute;
+            top: -50px;
+            opacity: 0.8;
+            animation: petalFall linear infinite;
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-50px) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            90% {
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateY(105vh) rotate(720deg) translateX(var(--sway));
+                opacity: 0;
+            }
+        }
+
+        /* ===== Layout Container ===== */
+        .app-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 15px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ff80ab, #ff4081, #f8bbd0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+            margin-bottom: 3px;
+        }
+
+        .sub-title {
+            font-size: 0.9rem;
+            color: rgba(255, 240, 245, 0.8);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* ===== Unlock Overlay (Mobile Bypass) ===== */
+        .unlock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 5, 22, 0.92);
+            backdrop-filter: blur(15px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .unlock-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .heart-envelope-icon {
+            font-size: 4.5rem;
+            color: var(--primary-pink);
+            animation: pulseHeart 1.5s infinite ease-in-out;
+            margin-bottom: 18px;
+            filter: drop-shadow(0 0 25px var(--primary-pink));
+        }
+
+        @keyframes pulseHeart {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .unlock-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffe4e1;
+            text-align: center;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        .unlock-hint {
+            font-size: 0.85rem;
+            color: rgba(255, 182, 193, 0.7);
+            margin-top: 10px;
+        }
+
+        /* ===== 3D Notebook Component ===== */
+        .notebook-wrapper {
+            width: 100%;
+            perspective: 1500px;
+            margin-bottom: 0;
+        }
+
+        .notebook {
+            background: rgba(45, 15, 40, 0.75);
+            backdrop-filter: blur(25px);
+            border: 2px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            min-height: 440px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Binder Rings Effect */
+        .binder-rings {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            bottom: 55px;
+            width: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .ring {
+            width: 24px;
+            height: 10px;
+            background: linear-gradient(180deg, #e0e0e0 0%, #9e9e9e 50%, #ffffff 100%);
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .notebook-pages {
+            padding: 20px 20px 20px 50px;
+            flex: 1;
+            display: flex;
+            position: relative;
+        }
+
+        .page {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            right: 20px;
+            bottom: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transform: rotateY(-15deg) translateX(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            transform: rotateY(0deg) translateX(0);
+        }
+
+        /* Page 1: Handwritten Letter */
+        .handwritten-card {
+            background: rgba(255, 245, 248, 0.95);
+            color: #2c1a29;
+            border-radius: 16px;
+            padding: 18px 20px;
+            height: 100%;
+            box-shadow: inset 0 0 30px rgba(255, 182, 193, 0.3), 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .letter-header {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--deep-pink);
+            margin-bottom: 10px;
+            border-bottom: 2px dashed var(--soft-pink);
+            padding-bottom: 5px;
+        }
+
+        .letter-content {
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #3a2236;
+        }
+
+        .letter-content strong {
+            color: var(--deep-pink);
+            background: rgba(255, 182, 193, 0.3);
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            text-align: right;
+            color: var(--deep-pink);
+            margin-top: 10px;
+        }
+
+        /* Page 2: Memory Polaroid Gallery */
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            height: 100%;
+            align-content: center;
+        }
+
+        .polaroid-card {
+            background: #ffffff;
+            padding: 8px 8px 14px 8px;
+            border-radius: 4px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: rotate(var(--angle));
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .polaroid-card:hover {
+            transform: scale(1.06) rotate(0deg);
+            z-index: 10;
+            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.4);
+        }
+
+        .polaroid-img-wrapper {
+            width: 100%;
+            height: 135px;
+            background: #ffe6ee;
+            border-radius: 2px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .polaroid-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .polaroid-caption {
+            font-family: 'Caveat', cursive;
+            color: #4a2c40;
+            font-size: 1.15rem;
+            text-align: center;
+            margin-top: 8px;
+            font-weight: 700;
+        }
+
+        .tape {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(2px);
+            border: 1px dashed rgba(255, 182, 193, 0.5);
+            z-index: 2;
+        }
+
+        /* Page 3: Secret Love Promises */
+        .promises-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            height: 100%;
+        }
+
+        .secret-envelope {
+            background: rgba(255, 240, 245, 0.12);
+            border: 1.5px dashed var(--soft-pink);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .secret-envelope:hover {
+            background: rgba(255, 240, 245, 0.25);
+            border-color: var(--primary-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px var(--shadow-pink);
+        }
+
+        .secret-envelope .env-icon {
+            font-size: 1.8rem;
+            color: var(--primary-pink);
+            margin-bottom: 6px;
+            transition: transform 0.3s;
+        }
+
+        .secret-envelope.opened .env-icon {
+            transform: scale(0.8) rotate(-10deg);
+            color: #ff4081;
+        }
+
+        .secret-envelope .env-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #ffe4e1;
+        }
+
+        .secret-envelope .env-body {
+            font-family: 'Caveat', cursive;
+            font-size: 1.15rem;
+            color: #ffffff;
+            line-height: 1.3;
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.4s ease;
+            margin-top: 0;
+        }
+
+        .secret-envelope.opened .env-body {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 6px;
+        }
+
+        /* Page 4: Interactive Forgiveness Station */
+        .forgive-station {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            gap: 14px;
+        }
+
+        .avatar-box {
+            position: relative;
+            width: 90px;
+            height: 90px;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--soft-pink);
+            box-shadow: 0 0 20px var(--primary-pink);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 12px var(--primary-pink);
+            }
+
+            100% {
+                box-shadow: 0 0 28px #ff4081;
+            }
+        }
+
+        .forgive-heading {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ffe4e1;
+        }
+
+        .action-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+            align-items: center;
+            position: relative;
+        }
+
+        .btn-forgive {
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #ff4081, #ff80ab);
+            color: #ffffff;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-forgive:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(255, 64, 129, 0.6);
+        }
+
+        .btn-runaway {
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 182, 193, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 240, 245, 0.85);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+
+        /* Notebook Footer Navigation Controls */
+        .notebook-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px 10px 35px;
+            background: rgba(20, 5, 20, 0.5);
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 30;
+        }
+
+        .nav-btn {
+            background: rgba(255, 240, 245, 0.15);
+            border: 1px solid var(--glass-border);
+            color: #ffe4e1;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary-pink);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            font-size: 0.8rem;
+            color: rgba(255, 182, 193, 0.8);
+            font-weight: 600;
+        }
+
+        /* ===== 2-Column Main Layout ===== */
+        .main-content-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 25px;
+            width: 100%;
+            margin-top: 10px;
+            align-items: start;
+        }
+
+        /* ===== Video Container Component (Replaces Notebook) ===== */
+        .video-wrapper {
+            width: 100%;
+            background: rgba(45, 15, 40, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 64, 129, 0.3);
+            overflow: hidden;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        .video-wrapper.hidden {
+            display: none !important;
+        }
+
+        .love-video {
+            width: 100%;
+            max-height: 520px;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            outline: none;
+        }
+
+        .spotify-card-column {
+            width: 100%;
+        }
+
+        .notebook-column {
+            width: 100%;
+        }
+
+        /* ===== Spotify Card Player Component (Left Column) ===== */
+        .spotify-player-widget {
+            width: 100%;
+            background: rgba(30, 10, 32, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1.5px solid rgba(255, 182, 193, 0.3);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 105, 180, 0.2);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: all 0.4s ease;
+        }
+
+        /* Square Album Cover (Standard Spotify Style) */
+        .square-cover-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 105, 180, 0.25);
+            background: #1a081c;
+        }
+
+        .square-album-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .square-album-cover:hover {
+            transform: scale(1.03);
+        }
+
+        .track-details-box {
+            text-align: left;
+            padding: 0 2px;
+        }
+
+        .track-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .artist-name {
+            font-size: 0.85rem;
+            color: rgba(255, 182, 193, 0.85);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 3px;
+        }
+
+        /* Player Controls */
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ctrl-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 240, 245, 0.85);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ctrl-btn:hover {
+            color: var(--primary-pink);
+            transform: scale(1.15);
+        }
+
+        .ctrl-btn.active-toggle {
+            color: var(--primary-pink);
+            text-shadow: 0 0 10px var(--primary-pink);
+        }
+
+        .btn-play-pause {
+            background: linear-gradient(135deg, #ff4081, #ff80ab);
+            color: #ffffff !important;
+            font-size: 1.2rem;
+            width: 44px;
+            height: 44px;
+            box-shadow: 0 0 15px rgba(255, 64, 129, 0.5);
+        }
+
+        .btn-play-pause:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 0 20px rgba(255, 64, 129, 0.8);
+        }
+
+        /* Progress Bar & Seekbar */
+        .progress-container {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-stamp {
+            font-size: 0.75rem;
+            color: rgba(255, 182, 193, 0.7);
+            font-family: 'Outfit', sans-serif;
+            width: 35px;
+        }
+
+        .seek-bar-wrapper {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .seek-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff80ab, #ff4081);
+            border-radius: 10px;
+            transition: width 0.1s linear;
+        }
+
+        /* Playlist Drawer */
+        .playlist-drawer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-top: 0;
+            border-top: 0px solid transparent;
+        }
+
+        .playlist-drawer.open {
+            max-height: 250px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 182, 193, 0.2);
+            overflow-y: auto;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .playlist-item:hover {
+            background: rgba(255, 240, 245, 0.1);
+        }
+
+        .playlist-item.active-song {
+            background: rgba(255, 64, 129, 0.25);
+            border: 1px solid rgba(255, 128, 171, 0.4);
+        }
+
+        .song-item-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .song-item-num {
+            font-size: 0.8rem;
+            color: rgba(255, 182, 193, 0.6);
+            width: 15px;
+        }
+
+        .song-item-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .song-item-artist {
+            font-size: 0.75rem;
+            color: rgba(255, 182, 193, 0.7);
+        }
+
+        /* Modal Congratulation Celebration */
+        .celebration-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 3, 18, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .celebration-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: rgba(45, 15, 45, 0.9);
+            border: 2px solid var(--primary-pink);
+            border-radius: 28px;
+            padding: 35px 25px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(255, 64, 129, 0.4);
+            transform: scale(0.7);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .celebration-modal.active .modal-card {
+            transform: scale(1);
+        }
+
+        .celebration-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--soft-pink);
+            box-shadow: 0 0 30px var(--primary-pink);
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff80ab;
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ffe4e1;
+            margin-bottom: 20px;
+        }
+
+        .close-modal-btn {
+            background: linear-gradient(135deg, #ff4081, #ff80ab);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.4);
+        }
+
+        /* ===== Responsive Media Queries ===== */
+        @media (max-width: 600px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+
+            .notebook-pages {
+                padding: 20px 20px 20px 50px;
+            }
+
+            .page {
+                left: 50px;
+                right: 20px;
+                top: 20px;
+                bottom: 20px;
+            }
+
+            .handwritten-card {
+                padding: 18px;
+            }
+
+            .letter-header {
+                font-size: 1.6rem;
+            }
+
+            .letter-content {
+                font-size: 1.2rem;
+            }
+
+            .polaroid-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .promises-container {
+                grid-template-columns: 1fr;
+            }
+
+            .spotify-player-widget {
+                width: 95%;
+                padding: 12px 15px;
+                bottom: 12px;
+            }
+
+            .ctrl-btn {
+                font-size: 1rem;
+                width: 32px;
+                height: 32px;
+            }
+
+            .btn-play-pause {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ambient Background Blur & Orbs -->
+    <div class="ambient-bg">
+        <div class="pink-orb orb-1"></div>
+        <div class="pink-orb orb-2"></div>
+        <div class="pink-orb orb-3"></div>
+    </div>
+
+    <!-- Falling Sakura / Rose Petals Container -->
+    <div class="petal-container" id="petalContainer"></div>
+
+    <!-- Mobile Autoplay Unlock Banner -->
+    <div class="unlock-overlay" id="unlockOverlay" onclick="unlockAudioExperience()">
+        <i class="fa-solid fa-envelope-open-text heart-envelope-icon"></i>
+        <div class="unlock-text">Chạm vào đây để mở sổ tay 🌸</div>
+        <div class="unlock-hint">(Gửi Rinn yêu thương ✨)</div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <h1 class="main-title">Gửi Rinn Yêu Thương 🌸</h1>
+            <p class="sub-title">Lời xin lỗi chân thành từ Tobii</p>
+        </header>
+
+        <!-- 2-Column Main Layout: Left (Spotify Card) & Right (Apology Notebook) -->
+        <div class="main-content-layout">
+            <!-- LEFT COLUMN: Spotify Music Player Card -->
+            <div class="spotify-card-column">
+                <div class="spotify-player-widget" id="spotifyPlayer">
+                    <!-- Square Album Cover Art (Standard Spotify Style) -->
+                    <div class="square-cover-box">
+                        <img src="1.jpg" alt="Album Cover" class="square-album-cover" id="albumCover"
+                            onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&auto=format&fit=crop&q=60';">
+                    </div>
+
+                    <!-- Song Info -->
+                    <div class="track-details-box">
+                        <div class="track-name" id="trackName">Beauty And A Beat</div>
+                        <div class="artist-name" id="artistName">Justin Bieber</div>
+                    </div>
+
+                    <!-- Progress Seekbar -->
+                    <div class="progress-container">
+                        <span class="time-stamp" id="currentTimeText">0:00</span>
+                        <div class="seek-bar-wrapper" id="seekBarWrapper" onclick="seekAudio(event)">
+                            <div class="seek-bar-fill" id="seekBarFill"></div>
+                        </div>
+                        <span class="time-stamp" id="durationText">0:00</span>
+                    </div>
+
+                    <!-- Media Controls -->
+                    <div class="controls-group">
+                        <button class="ctrl-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Táo bài ngẫu nhiên">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </button>
+                        <button class="ctrl-btn" onclick="playPrevSong()" title="Bài trước">
+                            <i class="fa-solid fa-backward-step"></i>
+                        </button>
+                        <button class="ctrl-btn btn-play-pause" id="playPauseBtn" onclick="togglePlayPause()"
+                            title="Phát / Tạm dừng">
+                            <i class="fa-solid fa-play" id="playIcon"></i>
+                        </button>
+                        <button class="ctrl-btn" onclick="playNextSong()" title="Bài tiếp">
+                            <i class="fa-solid fa-forward-step"></i>
+                        </button>
+                        <button class="ctrl-btn" id="loopBtn" onclick="toggleLoop()" title="Lặp lại">
+                            <i class="fa-solid fa-repeat"></i>
+                        </button>
+                        <button class="ctrl-btn" onclick="togglePlaylistDrawer()" title="Danh sách phát">
+                            <i class="fa-solid fa-list-ul"></i>
+                        </button>
+                    </div>
+
+                    <!-- Expandable Playlist Drawer -->
+                    <div class="playlist-drawer" id="playlistDrawer">
+                        <!-- Populated via JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: 3D Apology Notebook or Love Video -->
+            <div class="notebook-column">
+                <div class="notebook-wrapper" id="notebookWrapper">
+                    <div class="notebook">
+                        <!-- Spiral Binder Rings -->
+                        <div class="binder-rings">
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                        </div>
+
+                        <!-- Notebook Pages -->
+                        <div class="notebook-pages">
+                            <!-- Page 1: Handwritten Apology Letter -->
+                            <div class="page active" id="page1">
+                                <div class="handwritten-card">
+                                    <h2 class="letter-header">Rinn ơi... Tobii xin lỗi 💔</h2>
+                                    <div class="letter-content">
+                                        <p>Rinn à, Tobii biết mình đã làm Rinn buồn và tổn thương nhiều... 😢</p>
+                                        <br>
+                                        <p>Tobii hong biết phải làm sao để Rinn hiểu được là Tobii <strong>hối
+                                                hận</strong>
+                                            nhiều như thế nào. Mỗi lần nhớ lại chuyện xảy ra, Tobii thấy thật có lỗi với
+                                            Rinn.
+                                        </p>
+                                        <br>
+                                        <p>Rinn là người quan trọng nhất với Tobii, nhưng Tobii lại <strong>chưa đủ tinh
+                                                tế</strong> và chưa đủ quan tâm để hiểu được cảm xúc của Rinn... 💔</p>
+                                        <br>
+                                        <p>Tobii hứa sẽ cố gắng hoàn thiện bản thân mỗi ngày để mang lại nụ cười cho
+                                            Rinn!</p>
+                                    </div>
+                                    <div class="letter-signature">Mãi yêu Rinn ❤️<br>- Tobii -</div>
+                                </div>
+                            </div>
+
+                            <!-- Page 2: Memory Polaroid Gallery -->
+                            <div class="page" id="page2">
+                                <div class="polaroid-grid">
+                                    <div class="polaroid-card" style="--angle: -3deg;">
+                                        <div class="tape"></div>
+                                        <div class="polaroid-img-wrapper">
+                                            <img src="6.jpg" alt="Kỷ niệm Tobii & Rinn"
+                                                onerror="this.src='https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500&auto=format&fit=crop&q=60';">
+                                        </div>
+                                        <div class="polaroid-caption">Nụ cười của Rinn là đẹp nhất ✨</div>
+                                    </div>
+                                    <div class="polaroid-card" style="--angle: 4deg;">
+                                        <div class="tape"></div>
+                                        <div class="polaroid-img-wrapper">
+                                            <img src="7.jpg" alt="Những khoảnh khắc hạnh phúc"
+                                                onerror="this.src='https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=500&auto=format&fit=crop&q=60';">
+                                        </div>
+                                        <div class="polaroid-caption">Luôn trân trọng từng phút giây ❤️</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Page 3: Secret Love Promises Envelopes -->
+                            <div class="page" id="page3">
+                                <div class="promises-container">
+                                    <div class="secret-envelope" onclick="toggleEnvelope(this)">
+                                        <i class="fa-solid fa-envelope-open-text env-icon"></i>
+                                        <div class="env-title">💌 Lời hứa #1</div>
+                                        <div class="env-body">Tobii sẽ luôn lắng nghe và thấu hiểu cảm xúc của Rinn
+                                            nhiều hơn.
+                                        </div>
+                                    </div>
+                                    <div class="secret-envelope" onclick="toggleEnvelope(this)">
+                                        <i class="fa-solid fa-heart env-icon"></i>
+                                        <div class="env-title">💖 Lời hứa #2</div>
+                                        <div class="env-body">Luôn ở bên ôm Rinn thật chặt mỗi khi Rinn thấy mệt mỏi hay
+                                            buồn
+                                            phiền.</div>
+                                    </div>
+                                    <div class="secret-envelope" onclick="toggleEnvelope(this)">
+                                        <i class="fa-solid fa-wand-magic-sparkles env-icon"></i>
+                                        <div class="env-title">✨ Lời hứa #3</div>
+                                        <div class="env-body">Học cách tinh tế hơn, để tâm từng niềm vui nhỏ nhất của
+                                            Rinn.
+                                        </div>
+                                    </div>
+                                    <div class="secret-envelope" onclick="toggleEnvelope(this)">
+                                        <i class="fa-solid fa-rose env-icon"></i>
+                                        <div class="env-title">🌹 Lời hứa #4</div>
+                                        <div class="env-body">Dành trọn tình yêu chân thành và sự tôn trọng cho Rinn mỗi
+                                            ngày!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Page 4: Interactive Forgiveness Station -->
+                            <div class="page" id="page4">
+                                <div class="forgive-station">
+                                    <div class="avatar-box">
+                                        <img src="9.jpg" alt="Tobii Avatar" class="avatar-img"
+                                            onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60';">
+                                    </div>
+                                    <h3 class="forgive-heading">Rinn tha lỗi cho Tobii nha? 🥺</h3>
+                                    <div class="action-btns">
+                                        <button class="btn-forgive" onclick="handleForgiveClick()">
+                                            <i class="fa-solid fa-heart"></i> 💕 Tha thứ cho Tobii nhé
+                                        </button>
+                                        <button class="btn-runaway" id="btnRunaway" onmouseover="runawayButton()"
+                                            onclick="runawayButton()">
+                                            😤 Chưa, để suy nghĩ đã...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notebook Footer Controls -->
+                        <div class="notebook-controls">
+                            <button class="nav-btn" id="prevBtn" onclick="changePage(-1)" disabled>
+                                <i class="fa-solid fa-chevron-left"></i> Trang trước
+                            </button>
+                            <span class="page-indicator" id="pageIndicator">Trang 1 / 4</span>
+                            <button class="nav-btn" id="nextBtn" onclick="changePage(1)">
+                                Trang sau <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Romantic Video Container (Shown when "Yêu Tobii nhiều" is clicked, Muted & Autoplay, Clean Pure Video) -->
+                <div class="video-wrapper hidden" id="videoWrapper">
+                    <video class="love-video" id="loveVideo" autoplay loop muted playsinline src="12.mp4"></video>
+                </div>
+            </div>
+
+            <!-- Hidden HTML5 Audio Element -->
+            <audio id="audioEngine" preload="auto"></audio>
+
+            <!-- Celebration Modal -->
+            <div class="celebration-modal" id="celebrationModal">
+                <div class="modal-card">
+                    <img src="10.jpg" alt="Tobii & Rinn" class="celebration-avatar"
+                        onerror="this.src='https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500&auto=format&fit=crop&q=60';">
+                    <h2 class="modal-title">Cảm ơn Rinn yêu dấu! 🥰</h2>
+                    <p class="modal-desc">
+                        Tobii hạnh phúc lắm lắm luôn! 💖<br>
+                        Hứa sẽ luôn yêu thương, trân trọng và mang lại nụ cười rạng rỡ nhất cho Rinn mỗi ngày! ✨🌹
+                    </p>
+                    <button class="close-modal-btn" onclick="closeCelebrationModal()">Yêu Tobii nhiều ❤️</button>
+                </div>
+            </div>
+
+            <!-- Canvas Confetti Library -->
+            <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+            <!-- JavaScript Logic -->
+            <script>
+                /* ===== Playlist Metadata ===== */
+                const playlist = [
+                    {
+                        title: "Beauty And A Beat",
+                        artist: "Justin Bieber",
+                        cover: "1.jpg",
+                        src: "Beauty And A Beat_Justin Bieber .mp3"
+                    },
+                    {
+                        title: "Biển, Đảo Và Em",
+                        artist: "Mã Dã",
+                        cover: "2.jpg",
+                        src: "Biển, Đảo Và Em_ Mã Dã .mp3"
+                    },
+                    {
+                        title: "Buông Bỏ Sự Phụ Thuộc Nơi Anh",
+                        artist: "Yihuik Dĩ Tuệ",
+                        cover: "3.jpg",
+                        src: "Buông Bỏ Sự Phụ Thuộc Nơi Anh - Yihuik Dĩ Tuệ .mp3"
+                    },
+                    {
+                        title: "Cause I Love You",
+                        artist: "Noo Phước Thịnh",
+                        cover: "4.jpg",
+                        src: "Cause I Love You_ Noo Phước Thịnh..mp3"
+                    },
+                    {
+                        title: "Don't Côi",
+                        artist: "RPT Orijinn x Ronboogz",
+                        cover: "5.jpg",
+                        src: "Don't Côi_ RPT Orijinn x Ronboogz .mp3"
+                    }
+                ];
+
+                let currentTrackIndex = 0;
+                let isPlaying = false;
+                let isShuffle = false;
+                let isLoop = false;
+
+                const audio = document.getElementById('audioEngine');
+                const playIcon = document.getElementById('playIcon');
+                const albumCover = document.getElementById('albumCover');
+                const trackName = document.getElementById('trackName');
+                const artistName = document.getElementById('artistName');
+                const currentTimeText = document.getElementById('currentTimeText');
+                const durationText = document.getElementById('durationText');
+                const seekBarFill = document.getElementById('seekBarFill');
+                const playlistDrawer = document.getElementById('playlistDrawer');
+
+                // Init App & Audio
+                window.addEventListener('DOMContentLoaded', () => {
+                    loadTrack(currentTrackIndex);
+                    renderPlaylistDrawer();
+                    createSakuraPetals();
+                });
+
+                function unlockAudioExperience() {
+                    document.getElementById('unlockOverlay').classList.add('hidden');
+                    playTrack();
+                }
+
+                function loadTrack(index) {
+                    const track = playlist[index];
+                    trackName.textContent = track.title;
+                    artistName.textContent = track.artist;
+                    albumCover.src = track.cover;
+                    audio.src = track.src;
+
+                    // Highlight active in drawer
+                    const items = document.querySelectorAll('.playlist-item');
+                    items.forEach((item, idx) => {
+                        if (idx === index) item.classList.add('active-song');
+                        else item.classList.remove('active-song');
+                    });
+                }
+
+                function playTrack() {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        playIcon.className = "fa-solid fa-pause";
+                        albumCover.classList.add('playing');
+                    }).catch(e => console.log("Autoplay check:", e));
+                }
+
+                function pauseTrack() {
+                    audio.pause();
+                    isPlaying = false;
+                    playIcon.className = "fa-solid fa-play";
+                    albumCover.classList.remove('playing');
+                }
+
+                function togglePlayPause() {
+                    if (isPlaying) pauseTrack();
+                    else playTrack();
+                }
+
+                function playNextSong() {
+                    if (isShuffle) {
+                        currentTrackIndex = Math.floor(Math.random() * playlist.length);
+                    } else {
+                        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+                    }
+                    loadTrack(currentTrackIndex);
+                    playTrack();
+                }
+
+                function playPrevSong() {
+                    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+                    loadTrack(currentTrackIndex);
+                    playTrack();
+                }
+
+                function toggleShuffle() {
+                    isShuffle = !isShuffle;
+                    document.getElementById('shuffleBtn').classList.toggle('active-toggle', isShuffle);
+                }
+
+                function toggleLoop() {
+                    isLoop = !isLoop;
+                    audio.loop = isLoop;
+                    document.getElementById('loopBtn').classList.toggle('active-toggle', isLoop);
+                }
+
+                function togglePlaylistDrawer() {
+                    playlistDrawer.classList.toggle('open');
+                }
+
+                // Update Progress Bar
+                audio.addEventListener('timeupdate', () => {
+                    if (audio.duration) {
+                        const pct = (audio.currentTime / audio.duration) * 100;
+                        seekBarFill.style.width = pct + '%';
+                        currentTimeText.textContent = formatTime(audio.currentTime);
+                        durationText.textContent = formatTime(audio.duration);
+                    }
+                });
+
+                audio.addEventListener('ended', () => {
+                    if (!isLoop) playNextSong();
+                });
+
+                function seekAudio(e) {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const pos = (e.clientX - rect.left) / rect.width;
+                    audio.currentTime = pos * audio.duration;
+                }
+
+                function formatTime(sec) {
+                    const m = Math.floor(sec / 60);
+                    const s = Math.floor(sec % 60);
+                    return `${m}:${s < 10 ? '0' : ''}${s}`;
+                }
+
+                function renderPlaylistDrawer() {
+                    playlistDrawer.innerHTML = playlist.map((song, i) => `
+                <div class="playlist-item ${i === currentTrackIndex ? 'active-song' : ''}" onclick="selectSong(${i})">
+                    <div class="song-item-info">
+                        <span class="song-item-num">${i + 1}</span>
+                        <div>
+                            <div class="song-item-title">${song.title}</div>
+                            <div class="song-item-artist">${song.artist}</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-heart" style="color: var(--primary-pink); font-size: 0.8rem;"></i>
+                </div>
+            `).join('');
+                }
+
+                function selectSong(index) {
+                    currentTrackIndex = index;
+                    loadTrack(currentTrackIndex);
+                    playTrack();
+                }
+
+                /* ===== Notebook Navigation ===== */
+                let currentPage = 1;
+                const totalPages = 4;
+
+                function changePage(dir) {
+                    const newPage = currentPage + dir;
+                    if (newPage >= 1 && newPage <= totalPages) {
+                        document.getElementById(`page${currentPage}`).classList.remove('active');
+                        currentPage = newPage;
+                        document.getElementById(`page${currentPage}`).classList.add('active');
+
+                        // Update controls
+                        document.getElementById('prevBtn').disabled = (currentPage === 1);
+                        document.getElementById('nextBtn').disabled = (currentPage === totalPages);
+                        document.getElementById('pageIndicator').textContent = `Trang ${currentPage} / ${totalPages}`;
+
+                        // Burst a few petals on page turn
+                        burstPetals(10);
+                    }
+                }
+
+                function toggleEnvelope(el) {
+                    el.classList.toggle('opened');
+                }
+
+                /* ===== Runaway Button Logic ===== */
+                function runawayButton() {
+                    const btn = document.getElementById('btnRunaway');
+                    const vw = window.innerWidth;
+                    const vh = window.innerHeight;
+                    const newX = 20 + Math.random() * (vw - 180);
+                    const newY = 20 + Math.random() * (vh - 100);
+
+                    btn.style.position = 'fixed';
+                    btn.style.left = newX + 'px';
+                    btn.style.top = newY + 'px';
+                    btn.style.zIndex = '9999';
+                }
+
+                /* ===== Celebration Forgive Click ===== */
+                function handleForgiveClick() {
+                    document.getElementById('celebrationModal').classList.add('active');
+
+                    // Confetti Cannon
+                    if (typeof confetti === 'function') {
+                        confetti({
+                            particleCount: 120,
+                            spread: 80,
+                            origin: { y: 0.6 }
+                        });
+
+                        setTimeout(() => {
+                            confetti({
+                                particleCount: 80,
+                                angle: 60,
+                                spread: 55,
+                                origin: { x: 0 }
+                            });
+                            confetti({
+                                particleCount: 80,
+                                angle: 120,
+                                spread: 55,
+                                origin: { x: 1 }
+                            });
+                        }, 300);
+                    }
+
+                    // Burst lots of petals
+                    burstPetals(50);
+                }
+
+                function closeCelebrationModal() {
+                    document.getElementById('celebrationModal').classList.remove('active');
+
+                    // Switch notebook column to video 12.mp4
+                    const notebookWrapper = document.getElementById('notebookWrapper');
+                    const videoWrapper = document.getElementById('videoWrapper');
+                    const loveVideo = document.getElementById('loveVideo');
+
+                    if (notebookWrapper && videoWrapper) {
+                        notebookWrapper.style.display = 'none';
+                        videoWrapper.classList.remove('hidden');
+                        if (loveVideo) {
+                            loveVideo.muted = true;
+                            loveVideo.play().catch(e => console.log("Video autoplay prevented:", e));
+                        }
+                    }
+                }
+
+                /* ===== Sakura Petals Particle System ===== */
+                function createSakuraPetals() {
+                    const container = document.getElementById('petalContainer');
+                    const petalCount = 25;
+                    const petalSymbols = ['🌸', '🌺', '💖', '✨', '🌹'];
+
+                    for (let i = 0; i < petalCount; i++) {
+                        const petal = document.createElement('div');
+                        petal.className = 'petal';
+                        petal.textContent = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
+                        petal.style.left = Math.random() * 100 + '%';
+                        petal.style.fontSize = (14 + Math.random() * 16) + 'px';
+                        petal.style.animationDuration = (6 + Math.random() * 8) + 's';
+                        petal.style.animationDelay = (Math.random() * 8) + 's';
+                        petal.style.setProperty('--sway', (Math.random() * 160 - 80) + 'px');
+                        container.appendChild(petal);
+                    }
+                }
+
+                function burstPetals(count) {
+                    const container = document.getElementById('petalContainer');
+                    for (let i = 0; i < count; i++) {
+                        const petal = document.createElement('div');
+                        petal.className = 'petal';
+                        petal.textContent = ['🌸', '💖', '✨', '🌹'][Math.floor(Math.random() * 4)];
+                        petal.style.left = Math.random() * 100 + '%';
+                        petal.style.fontSize = (16 + Math.random() * 18) + 'px';
+                        petal.style.animationDuration = (3 + Math.random() * 4) + 's';
+                        petal.style.setProperty('--sway', (Math.random() * 200 - 100) + 'px');
+                        container.appendChild(petal);
+                        setTimeout(() => petal.remove(), 5000);
+                    }
+                }
+            </script>
+</body>
+
+</html>
