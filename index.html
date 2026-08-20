@@ -944,58 +944,187 @@
             box-shadow: 0 8px 20px rgba(255, 64, 129, 0.4);
         }
 
-        /* ===== Responsive Media Queries ===== */
-        @media (max-width: 600px) {
-            .main-title {
-                font-size: 2.2rem;
+        /* ===== Comprehensive Responsive Media Queries ===== */
+        @media (max-width: 900px) {
+            .app-container {
+                padding: 15px 10px 40px 10px;
+                max-width: 100%;
+            }
+
+            .main-content-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .spotify-card-column {
+                width: 100%;
+                max-width: 420px;
+                margin: 0 auto;
+            }
+
+            .notebook-column {
+                width: 100%;
+            }
+
+            .notebook-wrapper {
+                min-height: 480px;
+                padding: 10px;
+            }
+
+            .notebook {
+                min-height: 460px;
+            }
+
+            .binder-rings {
+                left: 10px;
+            }
+
+            .ring {
+                width: 22px;
+                height: 10px;
             }
 
             .notebook-pages {
-                padding: 20px 20px 20px 50px;
+                padding: 15px 15px 15px 40px;
             }
 
             .page {
-                left: 50px;
-                right: 20px;
-                top: 20px;
-                bottom: 20px;
+                left: 40px;
+                right: 10px;
+                top: 10px;
+                bottom: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .app-header {
+                margin-bottom: 15px;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .square-cover-box {
+                height: 220px;
             }
 
             .handwritten-card {
-                padding: 18px;
+                padding: 12px;
             }
 
             .letter-header {
-                font-size: 1.6rem;
+                font-size: 1.35rem;
+                margin-bottom: 6px;
             }
 
             .letter-content {
-                font-size: 1.2rem;
+                font-size: 1.02rem;
+                line-height: 1.4;
+            }
+
+            .letter-signature {
+                font-size: 1.1rem;
+                margin-top: 8px;
             }
 
             .polaroid-grid {
                 grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .polaroid-card {
+                padding: 8px;
+            }
+
+            .polaroid-img-wrapper {
+                height: 125px;
+            }
+
+            .polaroid-caption {
+                font-size: 0.78rem;
             }
 
             .promises-container {
                 grid-template-columns: 1fr;
+                gap: 8px;
             }
 
-            .spotify-player-widget {
-                width: 95%;
-                padding: 12px 15px;
-                bottom: 12px;
+            .env-title {
+                font-size: 0.9rem;
             }
 
-            .ctrl-btn {
-                font-size: 1rem;
-                width: 32px;
-                height: 32px;
+            .env-body {
+                font-size: 0.82rem;
+                line-height: 1.3;
             }
 
-            .btn-play-pause {
-                width: 38px;
-                height: 38px;
+            .avatar-box {
+                width: 80px;
+                height: 80px;
+            }
+
+            .forgive-heading {
+                font-size: 1.2rem;
+            }
+
+            .action-btns {
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .btn-forgive,
+            .btn-runaway {
+                padding: 10px 14px;
+                font-size: 0.88rem;
+                width: 100%;
+            }
+
+            .notebook-controls {
+                padding: 8px 12px;
+            }
+
+            .nav-btn {
+                padding: 6px 10px;
+                font-size: 0.78rem;
+            }
+
+            .page-indicator {
+                font-size: 0.72rem;
+            }
+
+            .video-wrapper {
+                padding: 10px;
+                border-radius: 18px;
+            }
+
+            .love-video {
+                max-height: 350px;
+                border-radius: 12px;
+            }
+
+            .modal-card {
+                padding: 22px 16px;
+                max-width: 92%;
+                border-radius: 20px;
+            }
+
+            .modal-title {
+                font-size: 1.9rem;
+            }
+
+            .modal-desc {
+                font-size: 0.88rem;
+            }
+
+            .close-modal-btn {
+                padding: 10px 20px;
+                font-size: 0.88rem;
             }
         }
     </style>
